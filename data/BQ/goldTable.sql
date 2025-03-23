@@ -1,5 +1,5 @@
 --1️. Sales Summary (sales_summary)
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.gold_dataset.sales_summary`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.gold_dataset.sales_summary`
 AS
 SELECT 
     o.order_date,
@@ -19,7 +19,7 @@ GROUP BY 1, 2, 3, 4, 5;
 
 -----------------------------------------------------------------------------------------------------------
 -- 2. Customer Engagement Metrics (customer_engagement)
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.gold_dataset.customer_engagement`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.gold_dataset.customer_engagement`
 AS
 SELECT 
     c.customer_id,
@@ -37,8 +37,7 @@ GROUP BY 1, 2, 6;
 
 -----------------------------------------------------------------------------------------------------------
 --3. Product Performance (product_performance)
-
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.gold_dataset.product_performance`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.gold_dataset.product_performance`
 AS
 SELECT 
     p.product_id,

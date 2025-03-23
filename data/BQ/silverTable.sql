@@ -1,5 +1,5 @@
 --Step 1: Create the customers Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.customers`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.customers`
 (
     customer_id INT64,
     name STRING,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.customers`
 
 
 --Step 2: Update Existing Active Records if There Are Changes
-MERGE INTO  `retailerdatalakeproject.silver_dataset.customers` target
+MERGE INTO `retailerdatalakeproject.silver_dataset.customers` target
 USING 
   (SELECT DISTINCT
     *, 
@@ -36,7 +36,7 @@ WHEN MATCHED AND
         target.effective_end_date = current_timestamp();
 
 --Step 3: Insert New or Updated Records
-MERGE INTO  `retailerdatalakeproject.silver_dataset.customers` target
+MERGE INTO `retailerdatalakeproject.silver_dataset.customers` target
 USING 
   (SELECT DISTINCT
     *, 
@@ -55,7 +55,7 @@ WHEN NOT MATCHED THEN
 
 
 --Step 1: Create the orders Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.orders`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.orders`
 (
     order_id INT64,
     customer_id INT64,
@@ -103,7 +103,7 @@ WHEN NOT MATCHED THEN
     VALUES (source.order_id, source.customer_id, source.order_date, source.total_amount, source.updated_at, source.effective_start_date, source.effective_end_date, source.is_active);
 
 --Step 1: Create the order_items Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.order_items`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.order_items`
 (
     order_item_id INT64,
     order_id INT64,
@@ -153,7 +153,7 @@ WHEN NOT MATCHED THEN
     VALUES (source.order_item_id, source.order_id, source.product_id, source.quantity, source.price, source.updated_at, source.effective_start_date, source.effective_end_date, source.is_active);
 
 --Step 1: Create the categories Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.categories`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.categories`
 (
     category_id INT64,
     name STRING,
@@ -201,7 +201,7 @@ SELECT
 FROM `retailerdatalakeproject.bronze_dataset.products`;
 -------------------------------------------------------------------------------------------------------------
 --Step 1: Create the product_supplier Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.product_suppliers`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.product_suppliers`
 (
     supplier_id INT64,
     product_id INT64,
@@ -251,7 +251,7 @@ WHEN NOT MATCHED THEN
 
 
 --Step 1: Create the suppliers Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.suppliers`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.suppliers`
 (
   supplier_id INT64,
   supplier_name STRING,
@@ -281,7 +281,7 @@ FROM `retailerdatalakeproject.bronze_dataset.suppliers`;
 -------------------------------------------------------------------------------------------------------------
 
 --Step 1: Create the customer_reviews Table in the Silver Layer
-CREATE TABLE IF NOT EXISTS `retailerdatalakeproject.silver_dataset.customer_reviews`
+CREATE OR REPLACE TABLE `retailerdatalakeproject.silver_dataset.customer_reviews`
 (
     id STRING,
     customer_id INT64,

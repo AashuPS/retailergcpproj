@@ -1,4 +1,4 @@
-CREATE EXTERNAL TABLE IF NOT EXISTS `retailerdatalakeproject.bronze_dataset.orders`(
+CREATE OR REPLACE TABLE `retailerdatalakeproject.gold_dataset.orders`(
     order_id INT64,
     customer_id INT64,
     order_date STRING,
